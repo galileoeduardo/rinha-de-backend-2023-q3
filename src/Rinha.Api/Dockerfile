@@ -7,16 +7,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Api.csproj", "."]
-RUN dotnet restore "./Api.csproj"
+COPY ["Rinha.Api.csproj", "."]
+RUN dotnet restore "./Rinha.Api.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "Api.csproj" -c Release -o /app/build
+RUN dotnet build "Rinha.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Rinha.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Api.dll"]
+ENTRYPOINT ["dotnet", "Rinha.Api.dll"]

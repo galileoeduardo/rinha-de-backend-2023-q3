@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api.csproj", "{025A494E-4D20-4573-8E79-E0A585F9DC68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rinha.Api", "Rinha.Api.csproj", "{025A494E-4D20-4573-8E79-E0A585F9DC68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,84 @@
+﻿version: '3.5'
+services:
+  api1:
+    container_name: api1
+    build:
+        context: .
+        dockerfile: Dockerfile
+    hostname: api1
+    depends_on:
+      - db
+    expose:
+      - "80"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: '0.5GB'
+    networks:
+          - rinha
+  api2:
+    container_name: api2
+    build:
+        context: .
+        dockerfile: Dockerfile
+    hostname: api2
+    depends_on:
+      - db
+    expose:
+      - "80"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: '0.5GB'
+    networks:
+          - rinha
+  nginx: # Load Balancer
+    container_name: nginx-load-balancer
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - api1
+      - api2
+    ports:
+      - "9999:9999"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: '0.5GB'
+    networks:
+          - rinha
+  db:
+   container_name: postgres-db
+   image: postgres
+   hostname: db
+   restart: always
+   environment:
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+    POSTGRES_DB: rinha
+   ports:
+      - "5432:5432"
+   expose:
+      - "5432"
+   deploy:
+     resources:
+       limits:
+         cpus: '0.75'
+         memory: '1.5GB'
+   networks:
+          - rinha
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+          - rinha
+networks:
+    rinha:
+        driver: bridge

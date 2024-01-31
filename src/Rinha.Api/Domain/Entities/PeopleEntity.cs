@@ -1,6 +1,6 @@
-﻿namespace Api.Models
+﻿namespace Rinha.Domain.Entities
 {
-    public class PessoaEntity
+    public class PeopleEntity
     {
 
         public Guid Id { get; set; }
@@ -8,7 +8,5 @@
         public required string Nome { get; set; }
         public DateTime? Nascimento { get; set; }
         public required string[] Stack { get; set; }
-
-        
     }
 }
